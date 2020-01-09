@@ -55,6 +55,30 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+			    <artifactId>maven-antrun-plugin</artifactId>
+			    <executions>
+				<execution>
+				    <id>sonar-properties-replacement</id>
+				    <phase>compile</phase>
+				    <configuration>
+					<target>
+					    <propertyfile file="${basedir}/sonar-project.properties">
+						<entry key="sonar.projectName" value="${project.name}" />
+						<entry key="sonar.projectKey" value="${sonar.projectKey}" />
+						<entry key="sonar.projectVersion" value="${project.version}" />
+						<entry key="sonar.java.source" value="${java.version}" />
+						<entry key="sonar.java.target" value="${java.version}" />
+					    </propertyfile>
+					    <replaceregexp file="${basedir}/sonar-project.properties" match="^#.*\n" replace=""/>
+					</target>
+				    </configuration>
+				    <goals>
+					<goal>run</goal>
+				    </goals>
+				</execution>
+			    </executions>
+			</plugin>		
 		</plugins>
 	</build>
 
