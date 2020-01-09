@@ -5,14 +5,13 @@ pipeline {
   stages {
     stage('Build App') {
       steps {
-        sh "mvn install"
+        sh "mvn clean package install"
       }
     }
     stage('Code Analysis') {
       steps {
         script {
-          sh "mvn sonar:sonar \
-          -Dsonar.host.url=https://sonarqube-myproject-manargis.osp-apps.k4it.xyz"
+          sh "mvn sonar:sonar -Dsonar.host.url=https://sonarqube-myproject-manargis.osp-apps.k4it.xyz"
          }
       }
     }
